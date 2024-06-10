@@ -29,6 +29,8 @@ void UMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponent
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	UE_LOG(LogTemp, Display, TEXT("hi!"));
+	AActor* owner = GetOwner();
+
+	UE_LOG(LogTemp, Display, TEXT("Owner Memory Address: %u"), owner);
 }
 
