@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Grabber.h"
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
@@ -15,19 +14,16 @@ UGrabber::UGrabber()
 	// ...
 }
 
-
 // Called when the game starts
 void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
 
 	// ...
-	
 }
 
-
 // Called every frame
-void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
@@ -36,21 +32,20 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 	DrawDebugLine(GetWorld(), Start, End, FColor::Red);
 
-	float Damage;
+	FCollisionShape Sphere = FCollisionShape::MakeSphere(GrabRadius);
+	FHitResult HitResult;
 
-	if (HasDamage(Damage))
-		PrintDamage(Damage);
-}
+	bool HasHit = GetWorld()->SweepSingleByChannel(
+		HitResult,
+		Start, End,
+		FQuat::Identity,
+		ECC_GameTraceChannel2,
+		Sphere
+	);
 
-void UGrabber::PrintDamage(const float& Damage)
-{
-	// Damage = 2;
-	UE_LOG(LogTemp, Display, TEXT("Damage: %f"), Damage);
-}
+	if (!HasHit) return;
 
-bool UGrabber::HasDamage(float& OutDamage)
-{
-	OutDamage = 5;
+	FString Name = HitResult.GetActor()->GetActorNameOrLabel();
 
-	return true;
+	UE_LOG(LogTemp, Display, TEXT("Hit: %s"), *Name);
 }
