@@ -20,6 +20,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	float MaxGrabDistance = 400;
 
+	void PrintDamage(const float& Damage);
+	bool HasDamage(float& OutDamage);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
