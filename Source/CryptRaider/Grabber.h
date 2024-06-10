@@ -16,6 +16,10 @@ public:
 	// Sets default values for this component's properties
 	UGrabber();
 
+private:
+	UPROPERTY(EditAnywhere)
+	float MaxGrabDistance = 400;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
