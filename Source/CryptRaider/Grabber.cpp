@@ -43,7 +43,7 @@ void UGrabber::Grab()
 	FVector Start = GetComponentLocation();
 	FVector End = Start + GetForwardVector() * MaxGrabDistance;
 
-	// DrawDebugLine(GetWorld(), Start, End, FColor::Red);
+	DrawDebugSphere(GetWorld(), End, 10, 10, FColor::Red, false, 5, 5);
 
 	FCollisionShape Sphere = FCollisionShape::MakeSphere(GrabRadius);
 	FHitResult HitResult;
@@ -56,6 +56,9 @@ void UGrabber::Grab()
 		Sphere);
 
 	if (!HasHit) return;
+
+	DrawDebugSphere(GetWorld(), HitResult.Location, 10, 10, FColor::Green, false, 5, 5);
+	DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10, 10, FColor::Cyan, false, 5, 5);
 
 	AActor *Actor = HitResult.GetActor();
 	FString Name = Actor->GetActorNameOrLabel();
