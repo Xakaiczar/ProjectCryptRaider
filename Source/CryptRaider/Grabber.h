@@ -16,7 +16,7 @@ public:
 	UGrabber();
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	
+
 	UFUNCTION(BlueprintCallable)
 	void Grab();
 
@@ -37,4 +37,5 @@ private:
 	float HoldDistance = 200;
 
 	UPhysicsHandleComponent* GetPhysicsHandle() const;
+	bool GetGrabbableInReach(FHitResult& OutHitResult) const;
 };

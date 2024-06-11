@@ -39,24 +39,31 @@ UPhysicsHandleComponent* UGrabber::GetPhysicsHandle() const
 	return GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
 }
 
+bool UGrabber::GetGrabbableInReach(FHitResult& OutHitResult) const
+{
+	FVector Start = GetComponentLocation();
+	FVector End = Start + GetForwardVector() * MaxGrabDistance;
+	FCollisionShape Sphere = FCollisionShape::MakeSphere(GrabRadius);
+
+	bool HasHit = GetWorld()->SweepSingleByChannel(
+		OutHitResult,
+		Start, End,
+		FQuat::Identity,
+		ECC_GameTraceChannel2,
+		Sphere
+	);
+
+	return HasHit;
+}
+
 void UGrabber::Grab()
 {
 	UPhysicsHandleComponent *PhysicsHandle = GetPhysicsHandle();
 
 	if (PhysicsHandle == nullptr) return;
 
-	FVector Start = GetComponentLocation();
-	FVector End = Start + GetForwardVector() * MaxGrabDistance;
-	FCollisionShape Sphere = FCollisionShape::MakeSphere(GrabRadius);
 	FHitResult HitResult;
-
-	bool HasHit = GetWorld()->SweepSingleByChannel(
-		HitResult,
-		Start, End,
-		FQuat::Identity,
-		ECC_GameTraceChannel2,
-		Sphere
-	);
+	bool HasHit = GetGrabbableInReach(HitResult);
 
 	if (!HasHit) return;
 
