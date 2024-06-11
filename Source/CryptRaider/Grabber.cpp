@@ -27,9 +27,10 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 	UPhysicsHandleComponent *PhysicsHandle = GetPhysicsHandle();
 
-	if (PhysicsHandle == nullptr) return;
+	if (PhysicsHandle == nullptr || PhysicsHandle->GetGrabbedComponent() == nullptr) return;
 
 	FVector TargetLocation = GetComponentLocation() + GetForwardVector() * HoldDistance;
+
 	PhysicsHandle->SetTargetLocationAndRotation(TargetLocation, GetComponentRotation());
 }
 
@@ -46,9 +47,6 @@ void UGrabber::Grab()
 
 	FVector Start = GetComponentLocation();
 	FVector End = Start + GetForwardVector() * MaxGrabDistance;
-
-	// DrawDebugSphere(GetWorld(), End, 10, 10, FColor::Red, false, 5, 5);
-
 	FCollisionShape Sphere = FCollisionShape::MakeSphere(GrabRadius);
 	FHitResult HitResult;
 
@@ -57,15 +55,17 @@ void UGrabber::Grab()
 		Start, End,
 		FQuat::Identity,
 		ECC_GameTraceChannel2,
-		Sphere);
+		Sphere
+	);
 
 	if (!HasHit) return;
 
-	// DrawDebugSphere(GetWorld(), HitResult.Location, 10, 10, FColor::Green, false, 5, 5);
-	// DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10, 10, FColor::Cyan, false, 5, 5);
+	UPrimitiveComponent *HitComponent = HitResult.GetComponent();
+
+	HitComponent->WakeAllRigidBodies();
 
 	PhysicsHandle->GrabComponentAtLocationWithRotation(
-		HitResult.GetComponent(),
+		HitComponent,
 		NAME_None,
 		HitResult.ImpactPoint,
 		GetComponentRotation()
@@ -74,5 +74,10 @@ void UGrabber::Grab()
 
 void UGrabber::Release()
 {
-	UE_LOG(LogTemp, Display, TEXT("Released"));
+	UPhysicsHandleComponent *PhysicsHandle = GetPhysicsHandle();
+
+	if (PhysicsHandle == nullptr || PhysicsHandle->GetGrabbedComponent() == nullptr) return;
+
+	PhysicsHandle->GetGrabbedComponent()->WakeAllRigidBodies();
+	PhysicsHandle->ReleaseComponent();
 }
