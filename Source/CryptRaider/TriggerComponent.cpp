@@ -23,6 +23,9 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
     for (AActor* Actor : Actors)
     {
+        if (!Actor->ActorHasTag(TriggerTagName))
+            continue;
+
         FString Name = Actor->GetActorNameOrLabel();
 
         UE_LOG(LogTemp, Display, TEXT("Overlapping Actor: %s"), *Name);

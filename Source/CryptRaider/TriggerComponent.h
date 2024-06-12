@@ -16,9 +16,13 @@ class CRYPTRAIDER_API UTriggerComponent : public UBoxComponent
 
 public:
 	UTriggerComponent();
-	
+
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 protected:
 	virtual void BeginPlay() override;
+
+private:
+	UPROPERTY(EditAnywhere)
+	FName TriggerTagName;
 };
