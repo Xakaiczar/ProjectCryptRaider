@@ -21,14 +21,23 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
     if (Actor == nullptr)
     {
-        UE_LOG(LogTemp, Display, TEXT("No Overlapping Actors"));
+        Mover->SetShouldMove(false);
+        
+        // UE_LOG(LogTemp, Display, TEXT("No Overlapping Actors"));
     }
     else
     {
-        FString Name = GetAcceptableActor()->GetActorNameOrLabel();
-        
-        UE_LOG(LogTemp, Display, TEXT("Overlapping Actor: %s"), *Name);
+        Mover->SetShouldMove(true);
+
+        // FString Name = GetAcceptableActor()->GetActorNameOrLabel();
+
+        // UE_LOG(LogTemp, Display, TEXT("Overlapping Actor: %s"), *Name);
     }
+}
+
+void UTriggerComponent::SetMover(UMover *NewMover)
+{
+    Mover = NewMover;
 }
 
 AActor* UTriggerComponent::GetAcceptableActor() const
