@@ -13,7 +13,12 @@ UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class CRYPTRAIDER_API UTriggerComponent : public UBoxComponent
 {
 	GENERATED_BODY()
+
+public:
+	UTriggerComponent();
 	
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
 protected:
 	virtual void BeginPlay() override;
 };
