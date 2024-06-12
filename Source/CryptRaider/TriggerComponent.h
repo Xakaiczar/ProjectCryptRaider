@@ -25,4 +25,6 @@ protected:
 private:
 	UPROPERTY(EditAnywhere)
 	FName TriggerTagName;
+
+	AActor* GetAcceptableActor() const;
 };
