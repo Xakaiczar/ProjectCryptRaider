@@ -36,6 +36,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	float HoldDistance = 200;
 
+	FString const GrabbedTag = "Grabbed";
+
 	UPhysicsHandleComponent* GetPhysicsHandle() const;
+	
 	bool GetGrabbableInReach(FHitResult& OutHitResult) const;
 };

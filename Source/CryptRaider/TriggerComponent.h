@@ -30,6 +30,15 @@ private:
 	UPROPERTY(EditAnywhere)
 	FName TriggerTagName;
 
+	UPROPERTY(EditAnywhere)
+	bool ShouldSnapTriggeringObject;
+
+	UPROPERTY(EditAnywhere)
+	FVector SnapLocation;
+
+	UPROPERTY(EditAnywhere)
+	FRotator SnapRotation;
+
 	UMover* Mover;
 
 	AActor* GetAcceptableActor() const;
