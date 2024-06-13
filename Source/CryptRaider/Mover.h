@@ -37,5 +37,13 @@ public:
 
 	void SetShouldMove(bool NewValue);
 
+	UFUNCTION(BlueprintCallable)
+	bool GetShouldMove();
+
+	UFUNCTION(BlueprintCallable)
+	void SetStartLocation(FVector NewLocation);
+
 	void Move(float DeltaTime);
+
+	void MoveTo(FVector Destination, float DeltaTime);
 };
