@@ -27,6 +27,23 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
     }
     else
     {
+        UPrimitiveComponent *Component = Cast<UPrimitiveComponent>(Actor->GetRootComponent());
+
+        if (Component != nullptr)
+        {
+            Component->SetSimulatePhysics(false);
+        }
+
+        FRotator r = FRotator(0, 0, 0);
+        FVector v = FVector(0, 4, 40);
+
+        // Actor->SetActorRotation(r);
+        // Actor->SetActorLocation(v);
+
+
+        Actor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
+        Actor->SetActorRelativeRotation(r);
+        Actor->SetActorRelativeLocation(v);
         Mover->SetShouldMove(true);
 
         // FString Name = GetAcceptableActor()->GetActorNameOrLabel();
