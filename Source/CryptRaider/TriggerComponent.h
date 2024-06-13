@@ -34,12 +34,17 @@ private:
 	bool ShouldSnapTriggeringObject;
 
 	UPROPERTY(EditAnywhere)
+	bool ObjectMustBeReleased;
+
+	UPROPERTY(EditAnywhere)
 	FVector SnapLocation;
 
 	UPROPERTY(EditAnywhere)
 	FRotator SnapRotation;
 
-	UMover* Mover;
+	UMover *Mover;
 
 	AActor* GetAcceptableActor() const;
+
+	bool CanBeUsedAsTrigger(AActor* Actor) const;
 };

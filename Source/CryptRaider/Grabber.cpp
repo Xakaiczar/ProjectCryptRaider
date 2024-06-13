@@ -27,7 +27,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 	UPhysicsHandleComponent *PhysicsHandle = GetPhysicsHandle();
 
-	if (PhysicsHandle == nullptr || PhysicsHandle->GetGrabbedComponent() == nullptr) return;
+	if (!PhysicsHandle || !PhysicsHandle->GetGrabbedComponent()) return;
 
 	FVector TargetLocation = GetComponentLocation() + GetForwardVector() * HoldDistance;
 
@@ -60,7 +60,7 @@ void UGrabber::Grab()
 {
 	UPhysicsHandleComponent *PhysicsHandle = GetPhysicsHandle();
 
-	if (PhysicsHandle == nullptr) return;
+	if (!PhysicsHandle) return;
 
 	FHitResult HitResult;
 	bool HasHit = GetGrabbableInReach(HitResult);
@@ -85,13 +85,13 @@ void UGrabber::Release()
 {
 	UPhysicsHandleComponent *PhysicsHandle = GetPhysicsHandle();
 
-	if (PhysicsHandle == nullptr || PhysicsHandle->GetGrabbedComponent() == nullptr) return;
+	if (!PhysicsHandle || !PhysicsHandle->GetGrabbedComponent()) return;
 
 	UPrimitiveComponent *GrabbedComponent = PhysicsHandle->GetGrabbedComponent();
 
 	GrabbedComponent->GetOwner()->Tags.Remove(*GrabbedTag);
 
 	GrabbedComponent->WakeAllRigidBodies();
-	// 
+
 	PhysicsHandle->ReleaseComponent();
 }

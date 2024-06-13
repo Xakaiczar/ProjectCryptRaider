@@ -19,15 +19,11 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
     AActor *Actor = GetAcceptableActor();
 
-    if (Actor == nullptr)
-    {
-        Mover->SetShouldMove(false);
-    }
-    else
+    if (Actor)
     {
         UPrimitiveComponent *Component = Cast<UPrimitiveComponent>(Actor->GetRootComponent());
 
-        if (Component != nullptr)
+        if (Component)
         {
             Component->SetSimulatePhysics(false);
         }
@@ -41,6 +37,10 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
         }
 
         Mover->SetShouldMove(true);
+    }
+    else
+    {
+        Mover->SetShouldMove(false);
     }
 }
 
@@ -57,8 +57,13 @@ AActor* UTriggerComponent::GetAcceptableActor() const
 
     for (AActor *Actor : Actors)
     {
-        if (Actor->ActorHasTag(TriggerTagName)) return Actor;
+        if (Actor->ActorHasTag(TriggerTagName) && CanBeUsedAsTrigger(Actor)) return Actor;
     }
 
     return nullptr;
+}
+
+bool UTriggerComponent::CanBeUsedAsTrigger(AActor *Actor) const
+{
+    return (ObjectMustBeReleased) ? ObjectMustBeReleased && !Actor->ActorHasTag("Grabbed") : true;
 }
