@@ -47,7 +47,7 @@ private:
 	float MoveTime = 4;
 
 	bool IsOpen;
-	bool IsUnlocked;
+	bool IsUnlocked = true;
 
 	FRotator StartRotation;
 };
