@@ -37,10 +37,14 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
         }
 
         Mover->SetShouldMove(true);
+
+        IsTriggered = true;
     }
     else
     {
         Mover->SetShouldMove(false);
+
+        IsTriggered = false;
     }
 }
 

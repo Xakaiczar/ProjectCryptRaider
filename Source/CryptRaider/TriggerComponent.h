@@ -44,6 +44,8 @@ private:
 
 	UMover *Mover;
 
+	bool IsTriggered = false;
+
 	AActor* GetAcceptableActor() const;
 
 	bool CanBeUsedAsTrigger(AActor* Actor) const;
