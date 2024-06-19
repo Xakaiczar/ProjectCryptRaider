@@ -36,14 +36,10 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
             Actor->SetActorRelativeLocation(SnapLocation);
         }
 
-        Mover->SetShouldMove(true);
-
         IsTriggered = true;
     }
     else
     {
-        Mover->SetShouldMove(false);
-
         IsTriggered = false;
     }
 }
