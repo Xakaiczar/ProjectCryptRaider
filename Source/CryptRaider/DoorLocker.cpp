@@ -18,6 +18,13 @@ void UDoorLocker::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	Door->SetIsUnlocked(!Trigger->GetIsTriggered());
+	if (Door->GetIsOpen())
+	{
+		Door->SetIsUnlocked(true);
+	}
+	else
+	{
+		Door->SetIsUnlocked(!Trigger->GetIsTriggered());
+	}
 }
 
