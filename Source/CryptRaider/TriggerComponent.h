@@ -23,6 +23,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetMover(UMover* Mover);
 
+	bool GetIsTriggered();
+
 protected:
 	virtual void BeginPlay() override;
 

@@ -71,3 +71,8 @@ bool UTriggerComponent::CanBeUsedAsTrigger(AActor *Actor) const
 {
     return (ObjectMustBeReleased) ? ObjectMustBeReleased && !Actor->ActorHasTag("Grabbed") : true;
 }
+
+bool UTriggerComponent::GetIsTriggered()
+{
+    return IsTriggered;
+}
