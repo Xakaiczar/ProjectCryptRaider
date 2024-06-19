@@ -19,7 +19,7 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
     AActor *Actor = GetAcceptableActor();
 
-    if (Actor && Mover)
+    if (Actor)
     {
         UPrimitiveComponent *Component = Cast<UPrimitiveComponent>(Actor->GetRootComponent());
 
