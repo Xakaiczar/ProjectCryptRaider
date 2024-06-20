@@ -101,3 +101,38 @@ void UGrabber::Release()
 
 	PhysicsHandle->ReleaseComponent();
 }
+
+void UGrabber::OpenDoor()
+{
+	FVector Start = GetComponentLocation();
+	FVector End = Start + GetForwardVector() * MaxGrabDistance;
+	FCollisionShape Sphere = FCollisionShape::MakeSphere(GrabRadius);
+	FHitResult OutHitResult;
+
+	bool HasHit = GetWorld()->SweepSingleByChannel(
+		OutHitResult,
+		Start, End,
+		FQuat::Identity,
+		ECC_GameTraceChannel3,
+		Sphere);
+
+	if (!HasHit) return;
+
+	UPrimitiveComponent *HitComponent = OutHitResult.GetComponent();
+	FString Name = HitComponent->GetOwner()->GetActorNameOrLabel();
+
+	UE_LOG(LogTemp, Display, TEXT("Hit: %s"), *Name);
+
+	UDoorOpener *Door = OutHitResult.GetActor()->GetComponentByClass<UDoorOpener>();
+
+	if (!Door) return;
+
+	if (Door->GetIsUnlocked())
+	{
+		Door->ToggleIsOpen();
+	}
+	else
+	{
+		UE_LOG(LogTemp, Display, TEXT("Door %s is locked!"), *Name);
+	}
+}

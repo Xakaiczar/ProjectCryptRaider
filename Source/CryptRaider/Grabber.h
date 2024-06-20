@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/SceneComponent.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "DoorOpener.h"
 #include "Grabber.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -22,6 +23,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void Release();
+
+	UFUNCTION(BlueprintCallable)
+	void OpenDoor();
 
 protected:
 	virtual void BeginPlay() override;
