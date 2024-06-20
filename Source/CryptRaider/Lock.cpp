@@ -20,6 +20,8 @@ void ULock::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentT
 
 	AActor *Actor = GetOwner();
 
+	if (!Actor) return;
+
 	Actor->Tags.Remove("LockedLock");
 
 	UPrimitiveComponent *Test = Cast<UPrimitiveComponent>(Actor->GetRootComponent());
