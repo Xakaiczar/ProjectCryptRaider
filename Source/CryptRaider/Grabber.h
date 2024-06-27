@@ -26,6 +26,15 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void OpenDoor();
+	
+	UFUNCTION(BlueprintCallable)
+	bool GetIsGrabbing() const;
+
+	UFUNCTION(BlueprintCallable)
+	bool GetIsNearGrabbable() const;
+
+	UFUNCTION(BlueprintCallable)
+	FString GetGrabbableName() const;
 
 protected:
 	virtual void BeginPlay() override;
@@ -41,6 +50,12 @@ private:
 	float HoldDistance = 200;
 
 	FString const GrabbedTag = "Grabbed";
+
+	bool IsGrabbing = false;
+
+	bool IsNearGrabbable = false;
+
+	FString GrabbableName = "";
 
 	UPhysicsHandleComponent* GetPhysicsHandle() const;
 	

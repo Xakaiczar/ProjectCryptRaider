@@ -27,6 +27,12 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 	UPhysicsHandleComponent *PhysicsHandle = GetPhysicsHandle();
 
+	FHitResult OutHitResult;
+
+	IsNearGrabbable = GetGrabbableInReach(OutHitResult);
+
+	GrabbableName = IsNearGrabbable ? OutHitResult.GetActor()->GetActorNameOrLabel() : "";
+
 	if (!PhysicsHandle || !PhysicsHandle->GetGrabbedComponent()) return;
 
 	FVector TargetLocation = GetComponentLocation() + GetForwardVector() * HoldDistance;
@@ -85,6 +91,8 @@ void UGrabber::Grab()
 		HitResult.ImpactPoint,
 		GetComponentRotation()
 	);
+
+	IsGrabbing = true;
 }
 
 void UGrabber::Release()
@@ -100,6 +108,8 @@ void UGrabber::Release()
 	GrabbedComponent->WakeAllRigidBodies();
 
 	PhysicsHandle->ReleaseComponent();
+
+	IsGrabbing = false;
 }
 
 void UGrabber::OpenDoor()
@@ -135,4 +145,19 @@ void UGrabber::OpenDoor()
 	{
 		UE_LOG(LogTemp, Display, TEXT("Door %s is locked!"), *Name);
 	}
+}
+
+bool UGrabber::GetIsGrabbing() const
+{
+	return IsGrabbing;
+}
+
+bool UGrabber::GetIsNearGrabbable() const
+{
+	return IsNearGrabbable;
+}
+
+FString UGrabber::GetGrabbableName() const
+{
+	return GrabbableName;
 }
