@@ -24,8 +24,8 @@ void ULock::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentT
 
 	Actor->Tags.Remove("LockedLock");
 
-	UPrimitiveComponent *Test = Cast<UPrimitiveComponent>(Actor->GetRootComponent());
+	UPrimitiveComponent *Lock = Cast<UPrimitiveComponent>(Actor->GetRootComponent());
 
-	Test->SetSimulatePhysics(Trigger->GetIsTriggered());
+	Lock->SetSimulatePhysics(Trigger->GetIsTriggered());
 }
 

@@ -30,6 +30,8 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
         Actor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
 
+        if (ObjectLockedOnTrigger) Actor->Tags.Add("Untouchable");
+
         if (ShouldSnapTriggeringObject)
         {
             Actor->SetActorRelativeRotation(SnapRotation);

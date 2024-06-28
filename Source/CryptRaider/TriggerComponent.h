@@ -39,6 +39,9 @@ private:
 	bool ObjectMustBeReleased;
 
 	UPROPERTY(EditAnywhere)
+	bool ObjectLockedOnTrigger;
+
+	UPROPERTY(EditAnywhere)
 	FVector SnapLocation;
 
 	UPROPERTY(EditAnywhere)
