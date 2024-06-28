@@ -41,13 +41,13 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere)
-	float MaxGrabDistance = 400;
+	float MaxGrabDistance = 150;
 
 	UPROPERTY(EditAnywhere)
 	float GrabRadius = 100;
 
 	UPROPERTY(EditAnywhere)
-	float HoldDistance = 200;
+	float HoldDistance = 150;
 
 	FString const GrabbedTag = "Grabbed";
 

@@ -10,6 +10,14 @@ UGrabber::UGrabber()
 void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
+
+	float DefaultMaxGrabDistance = 400;
+	float DefaultGrabRadius = 100;
+	float DefaultHoldDistance = 200;
+
+	MaxGrabDistance = (MaxGrabDistance > 0) ? MaxGrabDistance : DefaultMaxGrabDistance;
+	GrabRadius = (GrabRadius > 0) ? GrabRadius : DefaultGrabRadius;
+	HoldDistance = (HoldDistance > 0) ? HoldDistance : DefaultHoldDistance;
 }
 
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
