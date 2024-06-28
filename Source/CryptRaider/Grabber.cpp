@@ -114,6 +114,8 @@ void UGrabber::Release()
 
 void UGrabber::OpenDoor()
 {
+	if (IsGrabbing) return;
+	
 	FVector Start = GetComponentLocation();
 	FVector End = Start + GetForwardVector() * MaxGrabDistance;
 	FCollisionShape Sphere = FCollisionShape::MakeSphere(GrabRadius);
